@@ -1,4 +1,4 @@
-package com.example.vocabulary;
+package com.vocabulary.board;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
