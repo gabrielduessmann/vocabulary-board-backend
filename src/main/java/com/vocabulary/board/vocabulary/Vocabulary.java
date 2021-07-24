@@ -12,13 +12,19 @@ public class Vocabulary {
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
 
-    @Column
+    @Column(nullable = false)
     private String word;
 
     @Column
     private String description;
 
     public Vocabulary() {
+    }
+
+    public Vocabulary(String id, String word, String description) {
+        this.id = id;
+        this.word = word;
+        this.description = description;
     }
 
     public String getId() {
