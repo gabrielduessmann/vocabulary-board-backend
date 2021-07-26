@@ -1,5 +1,7 @@
 package com.vocabulary.board.vocabulary;
 
+import java.util.Optional;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +18,8 @@ public class VocabularyService {
         return vocabRepository.save(vocab);
     }
 
-    public Vocabulary getOneVocabulary(String id) {
-        return vocabRepository.findById(id).orElse(null);
+    public Optional<Vocabulary> getOneVocabulary(UUID id) {
+        return vocabRepository.findById(id);
     }
 
     public List<Vocabulary> getAllVocabularies() {

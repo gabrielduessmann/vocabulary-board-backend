@@ -1,5 +1,6 @@
 package com.vocabulary.board.vocabulary;
 
+import java.util.UUID;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -8,30 +9,33 @@ import javax.persistence.*;
 public class Vocabulary {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
-    private String id;
+    @GeneratedValue
+    private UUID id;
 
     @Column(nullable = false)
     private String word;
 
-    @Column
     private String description;
 
     public Vocabulary() {
     }
 
-    public Vocabulary(String id, String word, String description) {
+    public Vocabulary(UUID id, String word, String description) {
         this.id = id;
         this.word = word;
         this.description = description;
     }
 
-    public String getId() {
+    public Vocabulary(String word, String description) {
+        this.word = word;
+        this.description = description;
+    }
+
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
