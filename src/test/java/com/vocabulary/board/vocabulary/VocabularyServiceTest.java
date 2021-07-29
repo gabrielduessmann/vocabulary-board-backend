@@ -1,11 +1,15 @@
 package com.vocabulary.board.vocabulary;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
@@ -18,23 +22,25 @@ public class VocabularyServiceTest {
     private VocabularyRepository vocabularyRepository;
 
     @Test
-    public void add() {
-        Vocabulary vocabExpected = new Vocabulary("123", "beautiful", "adjective");
-
-        Mockito.when(vocabularyRepository.save(vocabExpected)).thenReturn(vocabExpected);
+    void add_success() {
+        Vocabulary vocabExpected = new Vocabulary(UUID.randomUUID(), "beautiful", "adjective");
+        when(vocabularyRepository.save(vocabExpected)).thenReturn(vocabExpected);
 
         Vocabulary vocab = vocabularyService.addVocabulary(vocabExpected);
-        Assertions.assertEquals(vocabExpected, vocab);
+
+        assertEquals(vocabExpected, vocab);
     }
 
     @Test
-    public void getOneVocabulary() {
-        Vocabulary vocabExpected = new Vocabulary("123", "beautiful", "adjective");
+    void getOneVocabulary_sucess() {
+        var id = UUID.randomUUID();
+        Vocabulary vocabExpected = new Vocabulary(id, "beautiful", "adjective");
+        when(vocabularyRepository.findById(id)).thenReturn(Optional.of(vocabExpected));
 
-        Mockito.when(vocabularyRepository.findById("123")).thenReturn(java.util.Optional.of(vocabExpected));
+        Optional<Vocabulary> vocab = vocabularyService.getOneVocabulary(id);
 
-        Vocabulary vocab = vocabularyService.getOneVocabulary("123");
-        Assertions.assertEquals(vocabExpected, vocab);
+        assertTrue(vocab.isPresent());
+        assertEquals(vocabExpected, vocab.get());
     }
 
 }
