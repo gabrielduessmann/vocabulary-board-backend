@@ -29,6 +29,16 @@ public class Column {
     @OneToMany
     private List<Vocabulary> vocabularies;
 
+    public Column() {
+    }
+
+    public Column(String title, Date nextUpdate, StatusEnum status, Integer sprintOrder) {
+        this.title = title;
+        this.nextUpdate = nextUpdate;
+        this.status = status;
+        this.sprintOrder = sprintOrder;
+    }
+
     public UUID getId() {
         return id;
     }
