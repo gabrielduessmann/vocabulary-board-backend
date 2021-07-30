@@ -17,6 +17,9 @@ public class Vocabulary {
 
     private String description;
 
+    @ManyToOne
+    private com.vocabulary.board.column.Column column;
+
     public Vocabulary() {
     }
 
@@ -53,5 +56,13 @@ public class Vocabulary {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public com.vocabulary.board.column.Column getColumn() {
+        return column;
+    }
+
+    public void setColumn(com.vocabulary.board.column.Column column) {
+        this.column = column;
     }
 }
