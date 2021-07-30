@@ -2,41 +2,38 @@ package com.vocabulary.board.column;
 
 import com.vocabulary.board.column.enums.StatusEnum;
 import com.vocabulary.board.vocabulary.Vocabulary;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class Column {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
-    private String id;
+    @GeneratedValue
+    private UUID id;
 
     @javax.persistence.Column(nullable = false)
     private String title;
 
-    @javax.persistence.Column
     private Date nextUpdate;
 
     @Enumerated(EnumType.STRING)
     @javax.persistence.Column(nullable = false)
     private StatusEnum status;
 
-    @javax.persistence.Column(nullable = false)
     private Integer sprintOrder;
 
     @OneToMany
     private List<Vocabulary> vocabularies;
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
