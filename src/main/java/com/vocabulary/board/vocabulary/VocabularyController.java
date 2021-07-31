@@ -35,4 +35,9 @@ public class VocabularyController {
         return ResponseEntity.ok(vocabService.getAllVocabularies());
     }
 
+    @GetMapping("vocabularies/column/{columnId}")
+    public ResponseEntity<List<Vocabulary>> findAllVocabulariesByColumnId(@PathVariable  UUID columnId) {
+        return ResponseEntity.ok(vocabService.findVocabulariesByColumnId(columnId));
+    }
+
 }

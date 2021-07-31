@@ -27,4 +27,10 @@ public class VocabularyService {
         vocabRepository.findAll().forEach(vocabs::add);
         return vocabs;
     }
+
+    public List<Vocabulary> findVocabulariesByColumnId(UUID columnId) {
+        List<Vocabulary> vocabs = new ArrayList<>();
+        vocabRepository.findByColumnId(columnId).forEach(vocabs::add);
+        return vocabs;
+    }
 }
