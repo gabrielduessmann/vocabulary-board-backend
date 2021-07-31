@@ -1,14 +1,14 @@
 package com.vocabulary.board.column;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vocabulary.board.column.enums.StatusEnum;
 import com.vocabulary.board.vocabulary.Vocabulary;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
-@Entity
+// Observation: Postgres didn't allow "column" as table name.
+@Entity(name="columnBoard")
 public class Column {
 
     @Id
@@ -26,7 +26,8 @@ public class Column {
 
     private Integer sprintOrder;
 
-    @OneToMany
+    @JsonIgnore
+    @OneToMany(mappedBy = "column")
     private List<Vocabulary> vocabularies;
 
     public Column() {
