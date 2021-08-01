@@ -28,6 +28,11 @@ public class Comment {
     public Comment() {
     }
 
+    public Comment(String comment, Date commentedDate) {
+        this.comment = comment;
+        this.commentedDate = commentedDate;
+    }
+
     public UUID getId() {
         return id;
     }
