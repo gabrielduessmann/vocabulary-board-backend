@@ -1,7 +1,10 @@
 package com.vocabulary.board.vocabulary;
 
+import java.util.List;
 import java.util.UUID;
-import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vocabulary.board.comment.Comment;
 
 import javax.persistence.*;
 
@@ -19,6 +22,10 @@ public class Vocabulary {
 
     @ManyToOne
     private com.vocabulary.board.column.Column column;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "vocabulary")
+    private List<Comment> comment;
 
     public Vocabulary() {
     }
