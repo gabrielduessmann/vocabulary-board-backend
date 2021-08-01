@@ -4,7 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vocabulary.board.column.enums.StatusEnum;
 import com.vocabulary.board.vocabulary.Vocabulary;
 
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.EnumType;
+import javax.persistence.OneToMany;
 import java.util.*;
 
 // Observation: Postgres didn't allow "column" as table name.

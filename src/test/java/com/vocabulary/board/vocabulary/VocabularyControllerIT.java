@@ -2,7 +2,6 @@ package com.vocabulary.board.vocabulary;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import java.util.UUID;

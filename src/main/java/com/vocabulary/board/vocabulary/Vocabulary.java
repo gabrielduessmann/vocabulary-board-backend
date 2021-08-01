@@ -2,11 +2,14 @@ package com.vocabulary.board.vocabulary;
 
 import java.util.List;
 import java.util.UUID;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vocabulary.board.comment.Comment;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Vocabulary {
