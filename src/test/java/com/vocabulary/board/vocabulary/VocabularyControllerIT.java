@@ -2,8 +2,11 @@ package com.vocabulary.board.vocabulary;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import java.util.Date;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +26,7 @@ class VocabularyControllerIT {
 
   private static final String WORD = "beautiful";
   private static final String DESCRIPTION = "adjective";
+  private static final Date DATE = new Date();
 
   @LocalServerPort
   private int serverPort;
@@ -37,7 +41,7 @@ class VocabularyControllerIT {
     Vocabulary vocabulary = given()
         .when()
         .contentType(ContentType.JSON)
-        .body(new Vocabulary(WORD, DESCRIPTION))
+        .body(new Vocabulary(WORD, DESCRIPTION, DATE))
         .post("/vocabulary")
         .then()
         .statusCode(200)
@@ -45,6 +49,8 @@ class VocabularyControllerIT {
 
     assertEquals(WORD, vocabulary.getWord());
     assertEquals(DESCRIPTION, vocabulary.getDescription());
+    assertEquals(DATE, vocabulary.getCreatedDate());
+    assertNotNull(vocabulary.getId());
   }
 
   @Test
@@ -52,7 +58,7 @@ class VocabularyControllerIT {
     UUID vocabularyId = given()
         .when()
         .contentType(ContentType.JSON)
-        .body(new Vocabulary(WORD, DESCRIPTION))
+        .body(new Vocabulary(WORD, DESCRIPTION, DATE))
         .post("/vocabulary")
         .then()
         .statusCode(200)
@@ -67,6 +73,8 @@ class VocabularyControllerIT {
 
     assertEquals(WORD, vocabulary.getWord());
     assertEquals(DESCRIPTION, vocabulary.getDescription());
+    assertEquals(DATE, vocabulary.getCreatedDate());
+    assertNotNull(vocabulary.getId());
   }
 
   @Test

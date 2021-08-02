@@ -3,6 +3,8 @@ package com.vocabulary.board.vocabulary;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
+
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
@@ -20,26 +22,27 @@ public class VocabularyServiceTest {
     @Mock
     private VocabularyRepository vocabularyRepository;
 
+    private static final Vocabulary VOCABULARY = new Vocabulary(UUID.randomUUID(), "beautiful", "adjective", new Date());
+
+
     @Test
     void add_success() {
-        Vocabulary vocabExpected = new Vocabulary(UUID.randomUUID(), "beautiful", "adjective");
-        when(vocabularyRepository.save(vocabExpected)).thenReturn(vocabExpected);
+        when(vocabularyRepository.save(VOCABULARY)).thenReturn(VOCABULARY);
 
-        Vocabulary vocab = vocabularyService.addVocabulary(vocabExpected);
+        Vocabulary vocab = vocabularyService.addVocabulary(VOCABULARY);
 
-        assertEquals(vocabExpected, vocab);
+        assertEquals(VOCABULARY, vocab);
     }
 
     @Test
-    void getOneVocabulary_sucess() {
+    void getOneVocabulary_success() {
         var id = UUID.randomUUID();
-        Vocabulary vocabExpected = new Vocabulary(id, "beautiful", "adjective");
-        when(vocabularyRepository.findById(id)).thenReturn(Optional.of(vocabExpected));
+        when(vocabularyRepository.findById(id)).thenReturn(Optional.of(VOCABULARY));
 
         Optional<Vocabulary> vocab = vocabularyService.getOneVocabulary(id);
 
         assertTrue(vocab.isPresent());
-        assertEquals(vocabExpected, vocab.get());
+        assertEquals(VOCABULARY, vocab.get());
     }
 
 }
