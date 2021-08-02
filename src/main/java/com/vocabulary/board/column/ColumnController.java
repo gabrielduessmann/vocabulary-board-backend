@@ -30,6 +30,16 @@ public class ColumnController {
         return ResponseEntity.ok(columnService.findAll());
     }
 
+    @GetMapping("columns/not-in-board")
+    public ResponseEntity<List<Column>> findAllNotInBoard() {
+       return ResponseEntity.ok(columnService.findAllColumnsNotInBoard());
+    }
+
+    @GetMapping("columns/in-board")
+    public ResponseEntity<List<Column>> findAllInBoard() {
+        return ResponseEntity.ok(columnService.findAllColumnsInBoard());
+    }
+
     @PostMapping("column")
     public ResponseEntity<Column> save(@RequestBody Column column) {
         return ResponseEntity.ok(columnService.save(column));

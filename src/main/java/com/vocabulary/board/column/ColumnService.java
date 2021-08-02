@@ -1,5 +1,6 @@
 package com.vocabulary.board.column;
 
+import com.vocabulary.board.column.enums.StatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -20,6 +21,20 @@ public class ColumnService {
     public List<Column> findAll() {
         List<Column> columns= new ArrayList<>();
         columnRepository.findAll().forEach(columns::add);
+        return columns;
+    }
+
+    public List<Column> findAllColumnsNotInBoard() {
+        List<Column> columns = new ArrayList<>();
+        List<StatusEnum> status = List.of(StatusEnum.POOL, StatusEnum.BACKLOG);
+        columnRepository.findAllByStatusIn(status).forEach(columns::add);
+        return columns;
+    }
+
+    public List<Column> findAllColumnsInBoard() {
+        List<Column> columns = new ArrayList<>();
+        List<StatusEnum> status = List.of(StatusEnum.IN_PROGRESS, StatusEnum.PAUSED, StatusEnum.DONE);
+        columnRepository.findAllByStatusIn(status).forEach(columns::add);
         return columns;
     }
 
