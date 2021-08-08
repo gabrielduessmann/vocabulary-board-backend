@@ -26,20 +26,22 @@ public class VocabularyService {
         return vocabRepository.save(vocab);
     }
 
-    public Vocabulary updateVocabulary(VocabularyDTO vocabularyDto) {
+    public VocabularyDTO updateVocabulary(VocabularyDTO vocabularyDto) {
         Vocabulary vocabulary = vocabRepository.findById(vocabularyDto.getId()).orElseThrow();
         vocabulary.setWord(vocabularyDto.getWord());
         vocabulary.setDescription(vocabularyDto.getDescription());
-        return vocabRepository.save(vocabulary);
+        vocabRepository.save(vocabulary);
+        return vocabularyDto;
     }
 
-    public Vocabulary saveNewVocabulary(VocabularyDTO vocabularyDto) {
+    public VocabularyDTO saveNewVocabulary(VocabularyDTO vocabularyDto) {
         try {
             Column column = columnRepository.findByStatus(StatusEnum.POOL);
             Vocabulary vocabulary = vocabularyDto.toEntity();
             vocabulary.setCreationDate(new Date());
             vocabulary.setColumn(column);
-            return vocabRepository.save(vocabulary);
+            vocabRepository.save(vocabulary);
+            return vocabularyDto;
         } catch (IncorrectResultSizeDataAccessException e) {
             throw new ServiceException("There is more than one column with status in Pool. " +
                     "Only one column can have this status");
@@ -60,5 +62,9 @@ public class VocabularyService {
         List<Vocabulary> vocabs = new ArrayList<>();
         vocabRepository.findByColumnId(columnId).forEach(vocabs::add);
         return vocabs;
+    }
+
+    public Vocabulary moveToColumn(UUID vocabularyId, StatusEnum status) {
+        return vocabRepository.moveToColumn(vocabularyId, status);
     }
 }

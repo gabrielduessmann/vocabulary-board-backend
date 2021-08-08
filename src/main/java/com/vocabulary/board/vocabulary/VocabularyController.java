@@ -2,6 +2,7 @@ package com.vocabulary.board.vocabulary;
 
 import java.util.List;
 import java.util.UUID;
+import com.vocabulary.board.column.enums.StatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*") // FIXME - Remove when deploy to Heroku
 @RestController
@@ -17,15 +19,6 @@ public class VocabularyController {
 
     @Autowired
     private VocabularyService vocabService;
-
-    @PostMapping("/vocabulary")
-    public ResponseEntity<Vocabulary> saveVocabulary(@RequestBody VocabularyDTO vocabularyDto) {
-        if (vocabularyDto.getId() == null) {
-            return ResponseEntity.ok(vocabService.saveNewVocabulary(vocabularyDto));
-        } else {
-            return ResponseEntity.ok(vocabService.updateVocabulary(vocabularyDto));
-        }
-    }
 
     @GetMapping("/vocabulary/{id}")
     public ResponseEntity<Vocabulary> getVocabularyById(@PathVariable UUID id) {
@@ -44,4 +37,17 @@ public class VocabularyController {
         return ResponseEntity.ok(vocabService.findVocabulariesByColumnId(columnId));
     }
 
+    @PostMapping("/vocabulary")
+    public ResponseEntity<VocabularyDTO> saveVocabulary(@RequestBody VocabularyDTO vocabularyDto) {
+        if (vocabularyDto.getId() == null) {
+            return ResponseEntity.ok(vocabService.saveNewVocabulary(vocabularyDto));
+        } else {
+            return ResponseEntity.ok(vocabService.updateVocabulary(vocabularyDto));
+        }
+    }
+
+    @PostMapping("vocabulary/moveToColumn")
+    public ResponseEntity<Vocabulary> moveToColumn(@RequestParam("id") UUID vocabularyId, @RequestParam("status") StatusEnum statusTargetColumn) {
+        return ResponseEntity.ok(vocabService.moveToColumn(vocabularyId, statusTargetColumn));
+    }
 }

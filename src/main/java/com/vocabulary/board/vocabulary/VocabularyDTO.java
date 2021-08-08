@@ -1,9 +1,10 @@
 package com.vocabulary.board.vocabulary;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-
 import java.util.UUID;
 
+@AllArgsConstructor
 @Data
 public class VocabularyDTO {
     private UUID id;
