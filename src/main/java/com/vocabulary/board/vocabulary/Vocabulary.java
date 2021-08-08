@@ -31,7 +31,7 @@ public class Vocabulary {
     private String description;
 
     @Column(nullable = false)
-    private Date createdDate = new Date();
+    private Date creationDate = new Date();
 
     @ManyToOne
     private com.vocabulary.board.column.Column column;
@@ -40,17 +40,17 @@ public class Vocabulary {
     @OneToMany(mappedBy = "vocabulary")
     private List<Comment> comment;
 
-    public Vocabulary(UUID id, String word, String description, Date createdDate) {
+    public Vocabulary(UUID id, String word, String description, Date creationDate) {
         this.id = id;
         this.word = word;
         this.description = description;
-        this.createdDate = createdDate;
+        this.creationDate = creationDate;
     }
 
-    public Vocabulary(String word, String description, Date createdDate) {
+    public Vocabulary(String word, String description, Date creationDate) {
         this.word = word;
         this.description = description;
-        this.createdDate = createdDate;
+        this.creationDate = creationDate;
     }
 
 }

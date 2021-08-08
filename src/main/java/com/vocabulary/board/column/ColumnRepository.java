@@ -8,4 +8,6 @@ import java.util.UUID;
 
 public interface ColumnRepository extends CrudRepository<Column, UUID> {
     List<Column> findAllByStatusIn(List<StatusEnum> status);
+
+    Column findByStatus(StatusEnum statusEnum);
 }

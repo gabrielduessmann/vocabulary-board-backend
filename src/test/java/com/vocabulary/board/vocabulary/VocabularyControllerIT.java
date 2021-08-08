@@ -49,7 +49,7 @@ class VocabularyControllerIT {
 
     assertEquals(WORD, vocabulary.getWord());
     assertEquals(DESCRIPTION, vocabulary.getDescription());
-    assertEquals(DATE, vocabulary.getCreatedDate());
+    assertEquals(DATE, vocabulary.getCreationDate());
     assertNotNull(vocabulary.getId());
   }
 
@@ -73,7 +73,7 @@ class VocabularyControllerIT {
 
     assertEquals(WORD, vocabulary.getWord());
     assertEquals(DESCRIPTION, vocabulary.getDescription());
-    assertEquals(DATE, vocabulary.getCreatedDate());
+    assertEquals(DATE, vocabulary.getCreationDate());
     assertNotNull(vocabulary.getId());
   }
 

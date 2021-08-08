@@ -19,8 +19,12 @@ public class VocabularyController {
     private VocabularyService vocabService;
 
     @PostMapping("/vocabulary")
-    public ResponseEntity<Vocabulary> addVocabulary(@RequestBody Vocabulary vocab) {
-        return ResponseEntity.ok(vocabService.addVocabulary(vocab));
+    public ResponseEntity<Vocabulary> saveVocabulary(@RequestBody VocabularyDTO vocabularyDto) {
+        if (vocabularyDto.getId() == null) {
+            return ResponseEntity.ok(vocabService.saveNewVocabulary(vocabularyDto));
+        } else {
+            return ResponseEntity.ok(vocabService.updateVocabulary(vocabularyDto));
+        }
     }
 
     @GetMapping("/vocabulary/{id}")
