@@ -38,6 +38,11 @@ public class ColumnService {
         return columns;
     }
 
+    public List<Column> findAllInProgress() {
+        List<StatusEnum> status = List.of(StatusEnum.IN_PROGRESS);
+        return columnRepository.findAllByStatusIn(status);
+    }
+
     public Column save(Column column) {
         return columnRepository.save(column);
     }

@@ -40,6 +40,11 @@ public class ColumnController {
         return ResponseEntity.ok(columnService.findAllColumnsInBoard());
     }
 
+    @GetMapping("columns/in-progress")
+    public ResponseEntity<List<Column>> findAllInProgress() {
+        return ResponseEntity.ok(columnService.findAllInProgress());
+    }
+
     @PostMapping("column")
     public ResponseEntity<Column> save(@RequestBody Column column) {
         return ResponseEntity.ok(columnService.save(column));
