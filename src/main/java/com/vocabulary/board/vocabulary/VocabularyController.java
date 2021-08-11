@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*") // FIXME - Remove when deploy to Heroku
 @RestController
@@ -46,7 +47,7 @@ public class VocabularyController {
         }
     }
 
-    @PostMapping("vocabulary/moveColumn")
+    @PutMapping("vocabulary/moveColumn")
     public ResponseEntity<Vocabulary> moveToColumn(@RequestParam("id") UUID vocabularyId, @RequestParam("status") StatusEnum currentStatus, @RequestParam("sprintOrder") Integer sprintOrder) {
         return ResponseEntity.ok(vocabService.moveColumn(vocabularyId, currentStatus, sprintOrder));
     }
