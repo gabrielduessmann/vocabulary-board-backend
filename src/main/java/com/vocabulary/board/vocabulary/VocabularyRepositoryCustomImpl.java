@@ -18,14 +18,18 @@ public class VocabularyRepositoryCustomImpl implements VocabularyRepositoryCusto
 
     @Transactional
     @Override
-    public Vocabulary moveToColumn(UUID vocabularyId, StatusEnum status) {
+    public Vocabulary moveColumn(UUID vocabularyId, StatusEnum status,  Integer sprintOrder) {
 
         QColumn qColumn = new QColumn("column");
         JPAQuery query = new JPAQuery(entityManager);
-        UUID columnId = query
-                .from(qColumn)
-                .where(qColumn.status.eq(status))
-                .uniqueResult(qColumn).getId();
+        query.from(qColumn);
+
+        if (sprintOrder != null) {
+            query.where(qColumn.sprintOrder.eq(sprintOrder));
+        } else if (status != null) {
+            query.where(qColumn.status.eq(status));
+        }
+        UUID columnId = query.uniqueResult(qColumn).getId();
 
         QVocabulary qVocabulary = new QVocabulary("vocabulary");
         JPAUpdateClause queryUpdate = new JPAUpdateClause(entityManager, qVocabulary);

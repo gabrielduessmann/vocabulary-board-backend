@@ -46,8 +46,8 @@ public class VocabularyController {
         }
     }
 
-    @PostMapping("vocabulary/moveToColumn")
-    public ResponseEntity<Vocabulary> moveToColumn(@RequestParam("id") UUID vocabularyId, @RequestParam("status") StatusEnum statusTargetColumn) {
-        return ResponseEntity.ok(vocabService.moveToColumn(vocabularyId, statusTargetColumn));
+    @PostMapping("vocabulary/moveColumn")
+    public ResponseEntity<Vocabulary> moveToColumn(@RequestParam("id") UUID vocabularyId, @RequestParam("status") StatusEnum currentStatus, @RequestParam("sprintOrder") Integer sprintOrder) {
+        return ResponseEntity.ok(vocabService.moveColumn(vocabularyId, currentStatus, sprintOrder));
     }
 }

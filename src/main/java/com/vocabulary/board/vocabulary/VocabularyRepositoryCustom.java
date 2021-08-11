@@ -6,5 +6,5 @@ import java.util.UUID;
 
 public interface VocabularyRepositoryCustom {
 
-    Vocabulary moveToColumn(UUID vocabularyId, StatusEnum status);
+    Vocabulary moveColumn(UUID vocabularyId, StatusEnum status, Integer sprintOrder);
 }

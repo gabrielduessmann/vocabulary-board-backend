@@ -22,6 +22,8 @@ public class VocabularyService {
     @Autowired
     private ColumnRepository columnRepository;
 
+    private Integer lastSpringOrder = null; // FIXME - possibility of static
+
     public Vocabulary addVocabulary(Vocabulary vocab) {
         return vocabRepository.save(vocab);
     }
@@ -64,7 +66,22 @@ public class VocabularyService {
         return vocabs;
     }
 
-    public Vocabulary moveToColumn(UUID vocabularyId, StatusEnum status) {
-        return vocabRepository.moveToColumn(vocabularyId, status);
+    public Vocabulary moveColumn(UUID vocabularyId, StatusEnum currentStatus, Integer sprintOrder) {
+        StatusEnum targetStatus = null;
+        Integer targetSpringOrder = null;
+        if (lastSpringOrder == null) {
+            // lastSpringOrder = columnRepository.getLastSprintOrder();  TODO - implement this method to search for the max number where status = IN_PROGRESS
+            lastSpringOrder = 10;
+        }
+
+        if (currentStatus == StatusEnum.BACKLOG || (currentStatus == StatusEnum.IN_PROGRESS && sprintOrder != lastSpringOrder) || currentStatus == StatusEnum.PAUSED) {
+            targetSpringOrder = sprintOrder + 1;
+        } else if (currentStatus == StatusEnum.POOL) {
+            targetStatus = StatusEnum.BACKLOG;
+        } else if (sprintOrder == lastSpringOrder && currentStatus == StatusEnum.IN_PROGRESS) {
+            targetStatus = StatusEnum.DONE;
+        }
+
+        return vocabRepository.moveColumn(vocabularyId, targetStatus, targetSpringOrder);
     }
 }
