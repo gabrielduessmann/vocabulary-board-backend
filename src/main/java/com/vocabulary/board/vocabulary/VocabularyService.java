@@ -66,22 +66,27 @@ public class VocabularyService {
         return vocabs;
     }
 
-    public Vocabulary moveColumn(UUID vocabularyId, StatusEnum currentStatus, Integer sprintOrder) {
+    public Vocabulary moveToNextColumn(UUID vocabularyId) {
         StatusEnum targetStatus = null;
         Integer targetSpringOrder = null;
-        if (lastSpringOrder == null) {
+
+        Vocabulary vocabulary = vocabRepository.findById(vocabularyId).orElseThrow();
+        StatusEnum currentStatus = vocabulary.getColumn().getStatus();
+        Integer currentSprintOrder = vocabulary.getColumn().getSprintOrder();
+
+        if (lastSpringOrder == null && currentStatus == StatusEnum.IN_PROGRESS) {
             // lastSpringOrder = columnRepository.getLastSprintOrder();  TODO - implement this method to search for the max number where status = IN_PROGRESS
             lastSpringOrder = 10;
         }
 
-        if (currentStatus == StatusEnum.BACKLOG || (currentStatus == StatusEnum.IN_PROGRESS && sprintOrder != lastSpringOrder) || currentStatus == StatusEnum.PAUSED) {
-            targetSpringOrder = sprintOrder + 1;
+        if (currentStatus == StatusEnum.BACKLOG || (currentStatus == StatusEnum.IN_PROGRESS && currentSprintOrder != lastSpringOrder) || currentStatus == StatusEnum.PAUSED) {
+            targetSpringOrder = currentSprintOrder + 1;
         } else if (currentStatus == StatusEnum.POOL) {
             targetStatus = StatusEnum.BACKLOG;
-        } else if (sprintOrder == lastSpringOrder && currentStatus == StatusEnum.IN_PROGRESS) {
+        } else if (currentSprintOrder == lastSpringOrder && currentStatus == StatusEnum.IN_PROGRESS) {
             targetStatus = StatusEnum.DONE;
         }
 
-        return vocabRepository.moveColumn(vocabularyId, targetStatus, targetSpringOrder);
+        return vocabRepository.moveColumn(vocabulary.getId(), targetStatus, targetSpringOrder);
     }
 }
