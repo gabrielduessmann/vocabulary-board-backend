@@ -22,7 +22,7 @@ public class VocabularyService {
     @Autowired
     private ColumnRepository columnRepository;
 
-    private Integer lastSpringOrder = null; // FIXME - possibility of static
+    private Integer lastSprintOrder = null; // FIXME - possibility of static
 
     public Vocabulary addVocabulary(Vocabulary vocab) {
         return vocabRepository.save(vocab);
@@ -74,16 +74,16 @@ public class VocabularyService {
         StatusEnum currentStatus = vocabulary.getColumn().getStatus();
         Integer currentSprintOrder = vocabulary.getColumn().getSprintOrder();
 
-        if (lastSpringOrder == null && currentStatus == StatusEnum.IN_PROGRESS) {
-            // lastSpringOrder = columnRepository.getLastSprintOrder();  TODO - implement this method to search for the max number where status = IN_PROGRESS
-            lastSpringOrder = 10;
+        if (lastSprintOrder == null && currentStatus == StatusEnum.IN_PROGRESS) {
+            // lastSprintOrder = columnRepository.getLastSprintOrder();  TODO - implement this method to search for the max number where status = IN_PROGRESS
+            lastSprintOrder = 10;
         }
 
-        if (currentStatus == StatusEnum.BACKLOG || (currentStatus == StatusEnum.IN_PROGRESS && currentSprintOrder != lastSpringOrder) || currentStatus == StatusEnum.PAUSED) {
+        if (currentStatus == StatusEnum.BACKLOG || (currentStatus == StatusEnum.IN_PROGRESS && currentSprintOrder != lastSprintOrder) || currentStatus == StatusEnum.PAUSED) {
             targetSpringOrder = currentSprintOrder + 1;
         } else if (currentStatus == StatusEnum.POOL) {
             targetStatus = StatusEnum.BACKLOG;
-        } else if (currentSprintOrder == lastSpringOrder && currentStatus == StatusEnum.IN_PROGRESS) {
+        } else if (currentSprintOrder == lastSprintOrder && currentStatus == StatusEnum.IN_PROGRESS) {
             targetStatus = StatusEnum.DONE;
         }
 
