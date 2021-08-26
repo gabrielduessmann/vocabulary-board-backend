@@ -22,7 +22,7 @@ public class VocabularyService {
     @Autowired
     private ColumnRepository columnRepository;
 
-    private Integer lastSprintOrder = null; // FIXME - possibility of static
+    private Integer lastSprintOrder = null;
 
     public Vocabulary addVocabulary(Vocabulary vocab) {
         return vocabRepository.save(vocab);
@@ -75,8 +75,7 @@ public class VocabularyService {
         Integer currentSprintOrder = vocabulary.getColumn().getSprintOrder();
 
         if (lastSprintOrder == null && currentStatus == StatusEnum.IN_PROGRESS) {
-            // lastSprintOrder = columnRepository.getLastSprintOrder();  TODO - implement this method to search for the max number where status = IN_PROGRESS
-            lastSprintOrder = 10;
+            lastSprintOrder =  columnRepository.getMaxSprintOrder();
         }
 
         if (currentStatus == StatusEnum.BACKLOG || (currentStatus == StatusEnum.IN_PROGRESS && currentSprintOrder != lastSprintOrder) || currentStatus == StatusEnum.PAUSED) {
