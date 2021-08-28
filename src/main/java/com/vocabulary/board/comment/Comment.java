@@ -1,5 +1,6 @@
 package com.vocabulary.board.comment;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vocabulary.board.vocabulary.Vocabulary;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +22,7 @@ public class Comment {
 
     @Column(nullable = true) // FIXME change to false
     private Date commentedDate;
+
 
     @ManyToOne
     private Vocabulary vocabulary;
