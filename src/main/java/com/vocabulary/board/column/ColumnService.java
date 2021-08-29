@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ColumnService {
@@ -43,7 +44,18 @@ public class ColumnService {
         return columnRepository.findAllByStatusIn(status);
     }
 
+    public List<Column> findAllInProgressToPractice() {
+        return removeColumnsWithoutVocabularies(findAllInProgress());
+    }
+
     public Column save(Column column) {
         return columnRepository.save(column);
+    }
+
+    private List<Column> removeColumnsWithoutVocabularies(List<Column> columns) {
+        return columns
+                .stream()
+                .filter(column -> column.getVocabularies().size() > 0)
+                .collect(Collectors.toList());
     }
 }
