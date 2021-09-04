@@ -42,7 +42,7 @@ class VocabularyControllerIT {
     Vocabulary vocabulary = given()
         .when()
         .contentType(ContentType.JSON)
-        .body(VocabularyBuilder.oneVocabulary().withWord(WORD).withDescription(DESCRIPTION).withDate(DATE).build())
+        .body(VocabularyBuilder.oneVocabulary().withId(null).withWord(WORD).withDescription(DESCRIPTION).withDate(DATE).build())
         .post("/vocabulary")
         .then()
         .statusCode(200)

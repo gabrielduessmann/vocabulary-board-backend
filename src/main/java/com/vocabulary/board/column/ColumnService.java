@@ -52,10 +52,10 @@ public class ColumnService {
         return columnRepository.save(column);
     }
 
-    private List<Column> removeColumnsWithoutVocabularies(List<Column> columns) {
+    public List<Column> removeColumnsWithoutVocabularies(List<Column> columns) {
         return columns
                 .stream()
-                .filter(column -> column.getVocabularies().size() > 0)
+                .filter(column -> column.getVocabularies() != null && column.getVocabularies().size() > 0)
                 .collect(Collectors.toList());
     }
 }

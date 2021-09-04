@@ -3,16 +3,23 @@ package com.vocabulary.board.builders;
 import com.vocabulary.board.column.Column;
 import com.vocabulary.board.vocabulary.Vocabulary;
 import java.util.Date;
+import java.util.UUID;
 
 public class VocabularyBuilder {
     private Vocabulary entity;
 
     private VocabularyBuilder(Vocabulary vocabulary) {
+        vocabulary.setId(UUID.randomUUID());
         entity = vocabulary;
     }
 
     public static VocabularyBuilder oneVocabulary() {
         return new VocabularyBuilder(new Vocabulary());
+    }
+
+    public VocabularyBuilder withId(UUID id) {
+        entity.setId(id);
+        return this;
     }
 
     public VocabularyBuilder withColumn(Column column) {
