@@ -1,6 +1,7 @@
 package com.vocabulary.board.column;
 
 import com.vocabulary.board.column.enums.StatusEnum;
+import com.vocabulary.board.vocabulary.Vocabulary;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,7 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import javax.inject.Inject;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @ExtendWith(SpringExtension.class)
@@ -32,6 +35,9 @@ public class ColumnControllerIT {
 
     @LocalServerPort
     private int serverPort;
+
+    @Inject
+    private ColumnRepository columnRepository;
 
     @BeforeEach
     void baseSetup() {

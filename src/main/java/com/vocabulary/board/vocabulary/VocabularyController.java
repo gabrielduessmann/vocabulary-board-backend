@@ -38,11 +38,11 @@ public class VocabularyController {
     }
 
     @PostMapping("/vocabulary")
-    public ResponseEntity<VocabularyDTO> saveVocabulary(@RequestBody VocabularyDTO vocabularyDto) {
-        if (vocabularyDto.getId() == null) {
-            return ResponseEntity.ok(vocabService.saveNewVocabulary(vocabularyDto));
+    public ResponseEntity<Vocabulary> saveVocabulary(@RequestBody Vocabulary vocabulary) {
+        if (vocabulary.getId() == null) {
+            return ResponseEntity.ok(vocabService.saveNewVocabulary(vocabulary));
         } else {
-            return ResponseEntity.ok(vocabService.updateVocabulary(vocabularyDto));
+            return ResponseEntity.ok(vocabService.updateVocabulary(vocabulary));
         }
     }
 

@@ -4,6 +4,7 @@ import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.vocabulary.board.builders.VocabularyBuilder;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import java.util.Date;
@@ -41,7 +42,7 @@ class VocabularyControllerIT {
     Vocabulary vocabulary = given()
         .when()
         .contentType(ContentType.JSON)
-        .body(new Vocabulary(WORD, DESCRIPTION, DATE))
+        .body(VocabularyBuilder.oneVocabulary().withWord(WORD).withDescription(DESCRIPTION).withDate(DATE).build())
         .post("/vocabulary")
         .then()
         .statusCode(200)
