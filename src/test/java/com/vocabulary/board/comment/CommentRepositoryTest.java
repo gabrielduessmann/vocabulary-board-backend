@@ -40,11 +40,16 @@ public class CommentRepositoryTest {
     public void findAllByVocabularyId_orderByDateDesc() {
         Vocabulary vocabulary1 = (Vocabulary) JpaUtil.save(vocabularyRepository, VocabularyBuilder.oneVocabulary().build());
         Vocabulary vocabulary2 = (Vocabulary) JpaUtil.save(vocabularyRepository, VocabularyBuilder.oneVocabulary().build());
-        Comment comment1 = (Comment) JpaUtil.save(commentRepository, CommentBuilder.oneComment().withVocabulary(vocabulary1).withCommentedDate(new Date()).build());
-        Comment comment2 = (Comment) JpaUtil.save(commentRepository, CommentBuilder.oneComment().withVocabulary(vocabulary2).withCommentedDate(new Date()).build());
-        Comment comment3 = (Comment) JpaUtil.save(commentRepository, CommentBuilder.oneComment().withVocabulary(vocabulary1).withCommentedDate(new Date()).build());
-        Comment comment4 = (Comment) JpaUtil.save(commentRepository, CommentBuilder.oneComment().withVocabulary(vocabulary2).withCommentedDate(new Date()).build());
-        Comment comment5 = (Comment) JpaUtil.save(commentRepository, CommentBuilder.oneComment().withVocabulary(vocabulary2).withCommentedDate(new Date()).build());
+        Comment comment1 = (Comment) JpaUtil.save(commentRepository, CommentBuilder.oneComment().withVocabulary(vocabulary1)
+                .withCommentedDate(new Date(2021, 3, 10)).build());
+        Comment comment2 = (Comment) JpaUtil.save(commentRepository, CommentBuilder.oneComment().withVocabulary(vocabulary2)
+                .withCommentedDate(new Date(2021, 3, 20)).build());
+        Comment comment3 = (Comment) JpaUtil.save(commentRepository, CommentBuilder.oneComment().withVocabulary(vocabulary1)
+                .withCommentedDate(new Date(2021, 4, 10)).build());
+        Comment comment4 = (Comment) JpaUtil.save(commentRepository, CommentBuilder.oneComment().withVocabulary(vocabulary2)
+                .withCommentedDate(new Date(2021, 5, 10)).build());
+        Comment comment5 = (Comment) JpaUtil.save(commentRepository, CommentBuilder.oneComment().withVocabulary(vocabulary2)
+                .withCommentedDate(new Date(2021, 6, 10)).build());
 
         List<Comment> commentsFound = commentRepository.findAllByVocabularyId(vocabulary2.getId());
 
