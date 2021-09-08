@@ -42,13 +42,18 @@ public class VocabularyRepositoryCustomImpl implements VocabularyRepositoryCusto
         QVocabulary qVocabulary = new QVocabulary("vocabulary");
         JPAUpdateClause queryUpdate = new JPAUpdateClause(entityManager, qVocabulary);
         queryUpdate
-                .set(qVocabulary.column().id, column.getId())
+                .set(qVocabulary.column(), column)
                 .where(qVocabulary.id.eq(vocabularyId))
                 .execute();
 
-        return query
+        Vocabulary vocabularyUpdated = query
                 .from(qVocabulary)
                 .where(qVocabulary.id.eq(vocabularyId))
                 .uniqueResult(qVocabulary);
+
+        // Refresh Vocabulary to update the object with the new column
+        entityManager.refresh(vocabularyUpdated);
+
+        return vocabularyUpdated;
     }
 }

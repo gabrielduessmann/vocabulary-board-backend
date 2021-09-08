@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,20 +29,13 @@ public class Vocabulary {
 
     private String description;
 
-    private Date creationDate = new Date();
+    private Date creationDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private com.vocabulary.board.column.Column column;
 
     @JsonIgnore
     @OneToMany(mappedBy = "vocabulary")
     private List<Comment> comment;  
-
-
-    public Vocabulary(String word, String description, Date creationDate) {
-        this.word = word;
-        this.description = description;
-        this.creationDate = creationDate;
-    }
 
 }

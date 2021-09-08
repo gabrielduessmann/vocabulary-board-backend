@@ -12,7 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.EnumType;
 import javax.persistence.OneToMany;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -38,10 +40,4 @@ public class Column {
     @OneToMany(mappedBy = "column")
     private List<Vocabulary> vocabularies;
 
-    public Column(String title, Date nextUpdate, StatusEnum status, Integer sprintOrder) {
-        this.title = title;
-        this.nextUpdate = nextUpdate;
-        this.status = status;
-        this.sprintOrder = sprintOrder;
-    }
 }

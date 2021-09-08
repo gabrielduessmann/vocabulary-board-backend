@@ -1,8 +1,10 @@
 package com.vocabulary.board.builders;
 
 import com.vocabulary.board.column.Column;
+import com.vocabulary.board.comment.Comment;
 import com.vocabulary.board.vocabulary.Vocabulary;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class VocabularyBuilder {
@@ -39,6 +41,11 @@ public class VocabularyBuilder {
 
     public VocabularyBuilder withDate(Date date) {
         entity.setCreationDate(date);
+        return this;
+    }
+
+    public VocabularyBuilder withComments(List<Comment> comments) {
+        entity.setComment(comments);
         return this;
     }
 

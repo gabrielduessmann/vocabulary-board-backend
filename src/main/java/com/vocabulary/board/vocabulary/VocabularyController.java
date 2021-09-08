@@ -47,7 +47,7 @@ public class VocabularyController {
     }
 
     @PutMapping("vocabulary/moveToNextColumn")
-    public ResponseEntity<Vocabulary> moveToNextColumn(@RequestBody VocabularyDTO vocabularyId) {
+    public ResponseEntity<Vocabulary> moveToNextColumn(@RequestBody Vocabulary vocabularyId) {
         return ResponseEntity.ok(vocabService.moveToNextColumn(vocabularyId.getId()));
     }
 }

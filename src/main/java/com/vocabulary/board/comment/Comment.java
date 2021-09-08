@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.CascadeType;
 import java.util.Date;
 import java.util.UUID;
 
@@ -25,12 +26,7 @@ public class Comment {
 
     private Date commentedDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Vocabulary vocabulary;
-
-    public Comment(String comment, Date commentedDate) {
-        this.comment = comment;
-        this.commentedDate = commentedDate;
-    }
 
 }
