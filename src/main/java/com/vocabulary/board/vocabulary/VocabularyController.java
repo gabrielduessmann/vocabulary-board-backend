@@ -38,16 +38,16 @@ public class VocabularyController {
     }
 
     @PostMapping("/vocabulary")
-    public ResponseEntity<VocabularyDTO> saveVocabulary(@RequestBody VocabularyDTO vocabularyDto) {
-        if (vocabularyDto.getId() == null) {
-            return ResponseEntity.ok(vocabService.saveNewVocabulary(vocabularyDto));
+    public ResponseEntity<Vocabulary> saveVocabulary(@RequestBody Vocabulary vocabulary) {
+        if (vocabulary.getId() == null) {
+            return ResponseEntity.ok(vocabService.saveNewVocabulary(vocabulary));
         } else {
-            return ResponseEntity.ok(vocabService.updateVocabulary(vocabularyDto));
+            return ResponseEntity.ok(vocabService.updateVocabulary(vocabulary));
         }
     }
 
     @PutMapping("vocabulary/moveToNextColumn")
-    public ResponseEntity<Vocabulary> moveToNextColumn(@RequestBody VocabularyDTO vocabularyId) {
+    public ResponseEntity<Vocabulary> moveToNextColumn(@RequestBody Vocabulary vocabularyId) {
         return ResponseEntity.ok(vocabService.moveToNextColumn(vocabularyId.getId()));
     }
 }

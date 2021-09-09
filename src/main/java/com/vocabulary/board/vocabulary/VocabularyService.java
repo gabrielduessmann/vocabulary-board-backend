@@ -1,10 +1,10 @@
 package com.vocabulary.board.vocabulary;
 
+import java.security.InvalidParameterException;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Date;
 import com.vocabulary.board.column.Column;
 import com.vocabulary.board.column.ColumnRepository;
 import com.vocabulary.board.column.enums.StatusEnum;
@@ -28,25 +28,21 @@ public class VocabularyService {
         return vocabRepository.save(vocab);
     }
 
-    public VocabularyDTO updateVocabulary(VocabularyDTO vocabularyDto) {
-        Vocabulary vocabulary = vocabRepository.findById(vocabularyDto.getId()).orElseThrow();
-        vocabulary.setWord(vocabularyDto.getWord());
-        vocabulary.setDescription(vocabularyDto.getDescription());
-        vocabRepository.save(vocabulary);
-        return vocabularyDto;
+    public Vocabulary updateVocabulary(Vocabulary vocabulary) {
+        Vocabulary currentVocabulary = vocabRepository.findById(vocabulary.getId()).orElseThrow(InvalidParameterException::new);
+        currentVocabulary.setWord(vocabulary.getWord());
+        currentVocabulary.setDescription(vocabulary.getDescription());
+        return vocabRepository.save(currentVocabulary);
     }
 
-    public VocabularyDTO saveNewVocabulary(VocabularyDTO vocabularyDto) {
+    public Vocabulary saveNewVocabulary(Vocabulary vocabulary) {
         try {
             Column column = columnRepository.findByStatus(StatusEnum.POOL);
-            Vocabulary vocabulary = vocabularyDto.toEntity();
-            vocabulary.setCreationDate(new Date());
+            if (column == null) throw new ServiceException("There is no column with POOL status");
             vocabulary.setColumn(column);
-            vocabRepository.save(vocabulary);
-            return vocabularyDto;
+            return vocabRepository.save(vocabulary);
         } catch (IncorrectResultSizeDataAccessException e) {
-            throw new ServiceException("There is more than one column with status in Pool. " +
-                    "Only one column can have this status");
+            throw new ServiceException("There is more than one column with status POOL");
         }
     }
 
@@ -67,25 +63,32 @@ public class VocabularyService {
     }
 
     public Vocabulary moveToNextColumn(UUID vocabularyId) {
-        StatusEnum targetStatus = null;
-        Integer targetSpringOrder = null;
-
         Vocabulary vocabulary = vocabRepository.findById(vocabularyId).orElseThrow();
-        StatusEnum currentStatus = vocabulary.getColumn().getStatus();
-        Integer currentSprintOrder = vocabulary.getColumn().getSprintOrder();
+        Column columnToMove = whichColumnToMove(vocabulary.getColumn());
+
+        return vocabRepository.moveColumn(vocabulary.getId(), columnToMove.getStatus(), columnToMove.getSprintOrder());
+    }
+
+    public Column whichColumnToMove(Column currentColumn) {
+        Column columnToMove = new Column();
+        columnToMove.setStatus(null);
+        columnToMove.setSprintOrder(null);
+
+        StatusEnum currentStatus = currentColumn.getStatus();
+        Integer currentSprintOrder = currentColumn.getSprintOrder();
 
         if (lastSprintOrder == null && currentStatus == StatusEnum.IN_PROGRESS) {
             lastSprintOrder =  columnRepository.getMaxSprintOrder();
         }
 
         if (currentStatus == StatusEnum.BACKLOG || (currentStatus == StatusEnum.IN_PROGRESS && currentSprintOrder != lastSprintOrder) || currentStatus == StatusEnum.PAUSED) {
-            targetSpringOrder = currentSprintOrder + 1;
+            columnToMove.setSprintOrder(currentSprintOrder + 1);
         } else if (currentStatus == StatusEnum.POOL) {
-            targetStatus = StatusEnum.BACKLOG;
+            columnToMove.setStatus(StatusEnum.BACKLOG);
         } else if (currentSprintOrder == lastSprintOrder && currentStatus == StatusEnum.IN_PROGRESS) {
-            targetStatus = StatusEnum.DONE;
+            columnToMove.setStatus(StatusEnum.DONE);
         }
 
-        return vocabRepository.moveColumn(vocabulary.getId(), targetStatus, targetSpringOrder);
+        return columnToMove;
     }
 }
