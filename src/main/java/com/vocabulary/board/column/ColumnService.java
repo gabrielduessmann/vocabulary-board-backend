@@ -58,4 +58,8 @@ public class ColumnService {
                 .filter(column -> column.getVocabularies() != null && column.getVocabularies().size() > 0)
                 .collect(Collectors.toList());
     }
+
+    public List<Column> findColumnsByStatus(List<StatusEnum> statusList) {
+        return columnRepository.findAllByStatusIn(statusList);
+    }
 }
