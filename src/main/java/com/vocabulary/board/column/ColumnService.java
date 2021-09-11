@@ -26,22 +26,18 @@ public class ColumnService {
     }
 
     public List<Column> findAllColumnsNotInBoard() {
-        List<Column> columns = new ArrayList<>();
         List<StatusEnum> status = List.of(StatusEnum.POOL, StatusEnum.BACKLOG);
-        columnRepository.findAllByStatusIn(status).forEach(columns::add);
-        return columns;
+        return findColumnsByStatus(status);
     }
 
     public List<Column> findAllColumnsInBoard() {
-        List<Column> columns = new ArrayList<>();
         List<StatusEnum> status = List.of(StatusEnum.IN_PROGRESS, StatusEnum.PAUSED, StatusEnum.DONE);
-        columnRepository.findAllByStatusIn(status).forEach(columns::add);
-        return columns;
+        return findColumnsByStatus(status);
     }
 
     public List<Column> findAllInProgress() {
         List<StatusEnum> status = List.of(StatusEnum.IN_PROGRESS);
-        return columnRepository.findAllByStatusIn(status);
+        return findColumnsByStatus(status);
     }
 
     public List<Column> findAllInProgressToPractice() {

@@ -123,4 +123,18 @@ public class ColumnServiceTest {
 
         assertThat(columnsFiltered).hasSize(2).isEqualTo(List.of(column1, column2));
     }
+
+    @Test
+    void findColumnsByStatus() {
+        Column column1 = ColumnBuilder.oneColumn().withStatus(StatusEnum.IN_PROGRESS).build();
+        Column column2 = ColumnBuilder.oneColumn().withStatus(StatusEnum.PAUSED).build();
+        Column column3 = ColumnBuilder.oneColumn().withStatus(StatusEnum.IN_PROGRESS).build();
+        Column column4 = ColumnBuilder.oneColumn().withStatus(StatusEnum.DONE).build();
+        List<StatusEnum> statusToFind = List.of(StatusEnum.IN_PROGRESS, StatusEnum.PAUSED);
+        when(columnService.findColumnsByStatus(statusToFind)).thenReturn(List.of(column1, column2, column3));
+
+        List<Column> columnsFound = columnService.findColumnsByStatus(statusToFind);
+
+        assertThat(columnsFound).hasSize(3).isEqualTo(List.of(column1, column2, column3));
+    }
 }
