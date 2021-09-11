@@ -84,3 +84,5 @@ Body: <br>
 
 * You need to run `vocabulary-board-frontend` after build this project. Make sure to run this project in the `http://localhost:8080` url.
 
+## RabbitMQ configuration
+* https://www.youtube.com/watch?v=V9DWKbalbWQ
