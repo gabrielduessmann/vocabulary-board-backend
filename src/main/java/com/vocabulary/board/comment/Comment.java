@@ -26,7 +26,7 @@ public class Comment {
 
     private Date commentedDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Vocabulary vocabulary;
 
 }
