@@ -1,11 +1,11 @@
 package com.vocabulary.board.messagebroker;
 
+import messagebroker.RabbitMQConstants;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
 
 @Component
@@ -30,7 +30,7 @@ public class RabbitMQConnection {
         return new Binding(queue.getName(), Binding.DestinationType.QUEUE, directExchange.getName(), queue.getName(), null);
     }
 
-    @PostConstruct
+    @PostConstruct // call this method when springboot starts
     public void addQueue() {
         Queue vocabularyQueue = queue(RabbitMQConstants.VOCABULARY_QUEUE);
         DirectExchange directExchange = directExchange();
@@ -40,6 +40,5 @@ public class RabbitMQConnection {
         amqpAdmin.declareQueue(vocabularyQueue);
         amqpAdmin.declareExchange(directExchange);
         amqpAdmin.declareBinding(bindingVocabulary);
-
     }
 }

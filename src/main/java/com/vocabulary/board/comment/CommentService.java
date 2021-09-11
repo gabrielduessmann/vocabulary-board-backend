@@ -1,7 +1,7 @@
 package com.vocabulary.board.comment;
 
-import com.vocabulary.board.messagebroker.RabbitMQConstants;
 import com.vocabulary.board.messagebroker.RabbitMQService;
+import messagebroker.RabbitMQConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class CommentService {
     }
 
     public Comment saveComment(Comment comment) {
-        rabbitMQService.sendMessage(RabbitMQConstants.VOCABULARY_QUEUE, CommentDTO.toDto(comment));
+        rabbitMQService.sendMessage(RabbitMQConstants.VOCABULARY_QUEUE, CommentDTOConverter.toDto(comment));
         return commentRepository.save(comment);
     }
 
