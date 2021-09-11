@@ -14,6 +14,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
 public class VocabularyRepositoryTest {
@@ -67,6 +68,18 @@ public class VocabularyRepositoryTest {
     }
 
     @Test
+    public void moveColumn_bySprintOrder_success() {
+        Column column1 = (Column) JpaUtil.save(columnRepository, ColumnBuilder.oneColumn().withSprintOrder(1).build());
+        Column column2 = (Column) JpaUtil.save(columnRepository, ColumnBuilder.oneColumn().withSprintOrder(2).build());
+        Vocabulary vocabulary = (Vocabulary) JpaUtil.save(vocabularyRepository,
+                VocabularyBuilder.oneVocabulary().withColumn(column1).build());
+
+        Vocabulary vocabularyMoved = vocabularyRepository.moveColumn(vocabulary.getId(), null, 2);
+
+        assertEquals(column2, vocabularyMoved.getColumn());
+    }
+
+    @Test
     public void moveColumn_bySprintOrder_exception() {
         Column column1 = (Column) JpaUtil.save(columnRepository, ColumnBuilder.oneColumn().withSprintOrder(1).build());
         Column column2 = (Column) JpaUtil.save(columnRepository, ColumnBuilder.oneColumn().withSprintOrder(2).build());
@@ -84,6 +97,18 @@ public class VocabularyRepositoryTest {
                 VocabularyBuilder.oneVocabulary().withColumn(column1).build());
 
        assertDoesNotThrow(() -> vocabularyRepository.moveColumn(vocabulary1.getId(), StatusEnum.BACKLOG, null));
+    }
+
+    @Test
+    public void moveColumn_byStatus_success() {
+        Column column1 = (Column) JpaUtil.save(columnRepository, ColumnBuilder.oneColumn().withStatus(StatusEnum.POOL).build());
+        Column column2 = (Column) JpaUtil.save(columnRepository, ColumnBuilder.oneColumn().withStatus(StatusEnum.BACKLOG).build());
+        Vocabulary vocabulary = (Vocabulary) JpaUtil.save(vocabularyRepository,
+                VocabularyBuilder.oneVocabulary().withColumn(column1).build());
+
+        Vocabulary vocabularyMoved = vocabularyRepository.moveColumn(vocabulary.getId(), StatusEnum.BACKLOG, null);
+
+        assertEquals(column2, vocabularyMoved.getColumn());
     }
 
     @Test
