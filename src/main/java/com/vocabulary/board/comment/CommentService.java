@@ -24,7 +24,7 @@ public class CommentService {
     }
 
     public Comment saveComment(Comment comment) {
-        rabbitMQService.sendMessage(RabbitMQConstants.VOCABULARY_QUEUE, CommentDTOConverter.toDto(comment));
+        rabbitMQService.sendMessage(RabbitMQConstants.VOCABULARY_QUEUE, VocabularyPracticedDtoConverter.toDto(comment.getVocabulary()));
         return commentRepository.save(comment);
     }
 
