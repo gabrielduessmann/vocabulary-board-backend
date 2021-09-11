@@ -1,5 +1,7 @@
 package com.vocabulary.board.comment;
 
+import com.vocabulary.board.messagebroker.RabbitMQConstants;
+import com.vocabulary.board.messagebroker.RabbitMQService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -10,7 +12,10 @@ import java.util.UUID;
 public class CommentService {
 
     @Autowired
-    CommentRepository commentRepository;
+    private CommentRepository commentRepository;
+
+    @Autowired
+    private RabbitMQService rabbitMQService;
 
     public List<Comment> findAllVocabularyComments(UUID vocabularyId) {
         List<Comment> comments = new ArrayList<>();
@@ -19,6 +24,7 @@ public class CommentService {
     }
 
     public Comment saveComment(Comment comment) {
+        rabbitMQService.sendMessage(RabbitMQConstants.VOCABULARY_QUEUE, CommentDTO.toDto(comment));
         return commentRepository.save(comment);
     }
 
