@@ -2,6 +2,7 @@ package com.vocabulary.board.comment;
 
 import com.vocabulary.board.builders.CommentBuilder;
 import com.vocabulary.board.builders.VocabularyBuilder;
+import com.vocabulary.board.messagebroker.RabbitMQService;
 import com.vocabulary.board.vocabulary.Vocabulary;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +14,9 @@ import java.util.List;
 import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -23,6 +27,9 @@ public class CommentServiceTest {
 
     @Mock
     private CommentRepository commentRepository;
+
+    @Mock
+    private RabbitMQService rabbitMQService;
 
     private final Vocabulary VOCABULARY = VocabularyBuilder.oneVocabulary().build();
     private final Comment COMMENT = new Comment(UUID.randomUUID(), "I can go everything with this jacket", new Date(), VOCABULARY);
@@ -40,6 +47,7 @@ public class CommentServiceTest {
     @Test
     void saveComment() {
         when(commentRepository.save(COMMENT)).thenReturn(COMMENT);
+        doNothing().when(rabbitMQService).sendMessage(anyString(), any());
 
         Comment commentSaved = commentService.saveComment(COMMENT);
 
