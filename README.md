@@ -1,4 +1,5 @@
-# vocabulary-board-backend
+# vocabulary-board-backend 
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/gabrielduessmann/vocabulary-board-backend/maven-build)
 
 > Backend from vocabulary board app.
 
