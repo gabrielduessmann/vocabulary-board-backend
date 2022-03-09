@@ -1,6 +1,7 @@
 package com.vocabulary.board.comment;
 
 import com.vocabulary.board.messagebroker.RabbitMQService;
+import com.vocabulary.board.messagebroker.RabbitMQVariables;
 import messagebroker.RabbitMQConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,9 @@ public class CommentService {
     }
 
     public Comment saveComment(Comment comment) {
-        rabbitMQService.sendMessage(RabbitMQConstants.VOCABULARY_QUEUE, VocabularyPracticedDtoConverter.toDto(comment.getVocabulary()));
+        if (RabbitMQVariables.rabbitmqActive == true) {
+            rabbitMQService.sendMessage(RabbitMQConstants.VOCABULARY_QUEUE, VocabularyPracticedDtoConverter.toDto(comment.getVocabulary()));
+        }
         return commentRepository.save(comment);
     }
 

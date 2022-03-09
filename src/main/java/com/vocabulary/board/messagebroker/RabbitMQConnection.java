@@ -32,6 +32,7 @@ public class RabbitMQConnection {
 
     @PostConstruct // call this method when springboot starts
     public void addQueue() {
+        if (RabbitMQVariables.rabbitmqActive == false) return;
         Queue vocabularyQueue = queue(RabbitMQConstants.VOCABULARY_QUEUE);
         DirectExchange directExchange = directExchange();
         Binding bindingVocabulary = binding(vocabularyQueue, directExchange);
