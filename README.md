@@ -1,13 +1,16 @@
 # vocabulary-board-backend 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/gabrielduessmann/vocabulary-board-backend/maven-build)
 
-> Backend from vocabulary board app.
+# Backend from vocabulary board app.
+
+## Requirements
+* [vocabulary-rabbitmq](https://github.com/gabrielduessmann/vocabulary-rabbitmq) 
 
 ## Installation
 
 ### Build
 ```console
-$ mvn clean install
+$ mvn clean install -DskipTests
 ```
 
 ### Generate Q classes for querydsl
