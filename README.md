@@ -24,7 +24,15 @@ $ mvn generate-sources
 $ mvn spring-boot:run
 ```
 
-## First time Configutation
+### Running debug mode
+* Go to Maven tab > Lifecycle > Choose "Clean" and then "Install"
+* Configure a configuration Remote JVM Debug, it can be used the default port 5005
+* Open the target folder in the terminal
+* Type the following command: <br>
+`java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -jar .\vocabulary-0.0.1-SNAPSHOT.jar`
+* Run debug
+
+## First time Configuration
 
 * Create a PotgreSQL database and configure your credentials in the `src/main/resources/application.properties` file. 
 It is mandatory to create a database as well, for Hibernate to map and create all tables, I suggest `vocabulary-board` for its name.
