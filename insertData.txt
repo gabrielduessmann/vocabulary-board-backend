@@ -1,0 +1,8 @@
+
+-- Insert default columns to the system
+INSERT INTO column_board (id, title, sprint_order, status) VALUES ('728d2386-9fa0-11ec-b909-0242ac120002', 'Pool', 0, 'POOL');
+INSERT INTO column_board (id, title, sprint_order, status) VALUES ('8cd12568-9fa4-11ec-b909-0242ac120002', 'Backlog', 0, 'BACKLOG');
+INSERT INTO column_board (id, title, sprint_order, status) VALUES ('935658b8-9fa4-11ec-b909-0242ac120002', 'Week 1', 1, 'IN_PROGRESS');
+INSERT INTO column_board (id, title, sprint_order, status) VALUES ('98da718e-9fa4-11ec-b909-0242ac120002', 'Week 2', 2, 'PAUSED');
+INSERT INTO column_board (id, title, sprint_order, status) VALUES ('9e3f5b4e-9fa4-11ec-b909-0242ac120002', 'Week 3', 3, 'IN_PROGRESS');
+INSERT INTO column_board (id, title, sprint_order, status) VALUES ('a19596c8-9fa4-11ec-b909-0242ac120002', 'Done', 0, 'DONE');
