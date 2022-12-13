@@ -33,7 +33,7 @@ public class VocabularyController {
     }
 
     @GetMapping("vocabularies/column/{columnId}")
-    public ResponseEntity<List<Vocabulary>> findAllVocabulariesByColumnId(@PathVariable  UUID columnId) {
+    public ResponseEntity<List<Vocabulary>> findAllVocabulariesByColumnId(@PathVariable UUID columnId) {
         return ResponseEntity.ok(vocabService.findVocabulariesByColumnId(columnId));
     }
 
@@ -49,5 +49,11 @@ public class VocabularyController {
     @PutMapping("vocabulary/moveToNextColumn")
     public ResponseEntity<Vocabulary> moveToNextColumn(@RequestBody Vocabulary vocabularyId) {
         return ResponseEntity.ok(vocabService.moveToNextColumn(vocabularyId.getId()));
+    }
+
+    @PutMapping("vocabulary/{id}/moveToNextColumn")
+    public ResponseEntity<Void> moveToNextColumn(@PathVariable UUID id) {
+        vocabService.moveToNextColumn(id);
+        return ResponseEntity.ok().build();
     }
 }
