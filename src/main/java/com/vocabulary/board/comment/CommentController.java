@@ -2,6 +2,7 @@ package com.vocabulary.board.comment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,5 +27,11 @@ public class CommentController {
     @PostMapping("/comment")
     public ResponseEntity<Comment> saveComment(@RequestBody Comment comment) {
         return ResponseEntity.ok(commentService.saveComment(comment));
+    }
+
+    @DeleteMapping("/comment/{id}")
+    public ResponseEntity<Comment> deleteComment(@PathVariable UUID id) {
+        commentService.deleteComment(id);
+        return ResponseEntity.ok().build();
     }
 }

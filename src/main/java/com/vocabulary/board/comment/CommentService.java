@@ -31,4 +31,7 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
+    public void deleteComment(UUID id) {
+        commentRepository.deleteById(id);
+    }
 }
