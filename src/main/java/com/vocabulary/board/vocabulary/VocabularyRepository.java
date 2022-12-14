@@ -6,4 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface VocabularyRepository extends CrudRepository<Vocabulary, UUID>, VocabularyRepositoryCustom {
     List<Vocabulary> findByColumnId(UUID columnId);
+
+    List<Vocabulary> findAllByOrderByWordAsc();
 }

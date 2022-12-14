@@ -52,7 +52,7 @@ public class VocabularyService {
 
     public List<Vocabulary> getAllVocabularies() {
         List<Vocabulary> vocabs = new ArrayList<>();
-        vocabRepository.findAll().forEach(vocabs::add);
+        vocabRepository.findAllByOrderByWordAsc().forEach(vocabs::add);
         return vocabs;
     }
 
