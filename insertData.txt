@@ -1,8 +1,19 @@
 
 -- Insert default columns to the system
-INSERT INTO column_board (id, title, sprint_order, status) VALUES ('728d2386-9fa0-11ec-b909-0242ac120002', 'Pool', 0, 'POOL');
-INSERT INTO column_board (id, title, sprint_order, status) VALUES ('8cd12568-9fa4-11ec-b909-0242ac120002', 'Backlog', 0, 'BACKLOG');
-INSERT INTO column_board (id, title, sprint_order, status) VALUES ('935658b8-9fa4-11ec-b909-0242ac120002', 'Week 1', 1, 'IN_PROGRESS');
-INSERT INTO column_board (id, title, sprint_order, status) VALUES ('98da718e-9fa4-11ec-b909-0242ac120002', 'Week 2', 2, 'PAUSED');
-INSERT INTO column_board (id, title, sprint_order, status) VALUES ('9e3f5b4e-9fa4-11ec-b909-0242ac120002', 'Week 3', 3, 'IN_PROGRESS');
-INSERT INTO column_board (id, title, sprint_order, status) VALUES ('a19596c8-9fa4-11ec-b909-0242ac120002', 'Done', 0, 'DONE');
+INSERT INTO
+column_board (id, title, sprint_order, status)
+VALUES
+('728d2386-9fa0-11ec-b909-0242ac120002', 'Pool', 0, 'POOL'),
+('8cd12568-9fa4-11ec-b909-0242ac120002', 'Backlog', 0, 'BACKLOG'),
+('935658b8-9fa4-11ec-b909-0242ac120002', 'Week 1', 1, 'IN_PROGRESS'),
+('98da718e-9fa4-11ec-b909-0242ac120002', 'Week 2', 2, 'PAUSED'),
+('9e3f5b4e-9fa4-11ec-b909-0242ac120002', 'Week 3', 3, 'IN_PROGRESS'),
+('974a2979-26f7-462e-8d2f-cda4a10dda57', 'Week 4', 4, 'PAUSED'),
+('89dc0663-07ef-4246-a158-3b4e5a72bbc9', 'Week 5', 5, 'PAUSED'),
+('1ef7539a-a8a6-4d9c-a95f-49b2afc5ed83', 'Week 6', 6, 'IN_PROGRESS'),
+('928745cc-dc06-46c6-be1e-b790d21ca1f5', 'Week 7', 7, 'PAUSED'),
+('4e8967a0-f2b2-4407-8d52-62b92d4d0a1b', 'Week 8', 8, 'PAUSED'),
+('51cb79cd-78ca-4f9a-ac1b-224631d6769b', 'Week 9', 9, 'PAUSED'),
+('fbe82013-c4c0-4987-bb07-9d65810e4988', 'Week 10', 10, 'PAUSED'),
+('4fd273bf-7514-4fd0-b7b9-cf93cd68197d', 'Week 11', 11, 'IN_PROGRESS'),
+('a19596c8-9fa4-11ec-b909-0242ac120002', 'Done', 0, 'DONE');
